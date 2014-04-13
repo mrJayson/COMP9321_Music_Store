@@ -14,7 +14,7 @@
 		<c:when test="${cart.cartNotEmpty}">
 			<h1 align="center">Cart</h1>
 			<form action="cart" method="post">
-				<table align="center">
+				<table align="center" border="1">
 					<tr>
 						<th>Title</th>
 						<th>Artist</th>
@@ -66,18 +66,29 @@
 				</table>
 			</form>
 			<c:if test="${cart.duplicated}">
-				<h2 align="center">Duplicated Tracks</h2>
-				<table align="center">
+				<h2 align="center">Duplicated items</h2>
+				<table align="center" border="1">
 					<tr>
 						<th>Title</th>
 						<th>Artist</th>
-						<th>Publisher</th>
 					</tr>
-					<c:forEach items="${cart.duplicatedTracks}" var="dup">
+					<c:forEach items="${cart.duplicatedSongs}" var="dup">
 						<tr>
 							<td>${dup.title}</td>
 							<td>${dup.artist}</td>
-							<td>${dup.publisher}</td>
+						</tr>
+					</c:forEach>
+				</table>
+				<h2 align="center">Albums the duplicated items may have come from</h2>
+				<table align="center" border="1">
+					<tr>
+						<th>Title</th>
+						<th>Artist</th>
+					</tr>
+					<c:forEach items="${cart.duplicatedAlbums}" var="dup">
+						<tr>
+							<td>${dup.title}</td>
+							<td>${dup.artist}</td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -87,6 +98,6 @@
 			<h1 align="center">Cart is Empty</h1>
 		</c:otherwise>
 	</c:choose>
-	<a href="welcome.jsp">Back to Search</a>
+	<a href="welcome.jsp">Back to Search ${cart.duplicated}</a>
 </body>
 </html>

@@ -34,8 +34,10 @@
 							<c:forEach items="${songList}" var="song">
 								<tr>
 									<td>${song.title}</td>
-									<td><a href="/COMP9321_Music_Store/search?query=${song.artist}&type=album">${song.artist}</a></td>
-									<td><a href="/COMP9321_Music_Store/search?query=${song.albumTitle}&type=song">${song.albumTitle}</a></td>
+									<td><a
+										href="/COMP9321_Music_Store/search?query=${song.artist}&type=album">${song.artist}</a></td>
+									<td><a
+										href="/COMP9321_Music_Store/search?query=${song.albumTitle}&type=song">${song.albumTitle}</a></td>
 									<td align="right">${song.genre}</td>
 									<td align="right">${song.publisher}</td>
 									<td align="right">${song.year}</td>
@@ -60,6 +62,10 @@
 			</c:choose>
 		</c:when>
 	</c:choose>
+	
+	<form align="right" action="cart" method="post">
+		<input type="submit" name="action" value="View Cart">
+	</form>
 	<a href="welcome.jsp">Back to Search</a>
 </body>
 </html>
