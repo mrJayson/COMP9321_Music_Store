@@ -1,7 +1,5 @@
-package servlet;
+package model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,12 +13,13 @@ public class Rgx {
 	private Matcher m;
 	
 	public Rgx (Album a, String pattern) {
-		this.content = a.getTitle() + "\n" + a.getArtist() + "\n" + a.getGenre() + "\n" + a.getPublisher() + "\n" + a.getYear() + "\n" + a.getAlbumID();
-		this.pattern = pattern;
+		this.content = a.getTitle() + "\n" + a.getArtist() + "\n" + a.getGenre() + "\n" + a.getPublisher() + "\n" + a.getYear() + "\n " + a.getAlbumID();
+		//this.content = a.getAlbumID();
+		this.pattern = pattern.replaceAll("[^A-Za-z0-9- ]", "");
 		compile();
 	}
 	public Rgx (Song s, String pattern) {
-		this.content = s.getTitle() + "\n" + s.getArtist() + "\n" + s.getSongID() + "\n" + s.getAlbumID();
+		this.content = s.getTitle() + "\n" + s.getArtist() + "\n" + s.getAlbumTitle() + "\n" + s.getGenre() + "\n" + s.getPublisher() + "\n" + s.getYear() + "\n" + s.getAlbumID() + "\n" + s.getSongID();
 		this.pattern = pattern;
 		compile();
 	}
@@ -31,6 +30,9 @@ public class Rgx {
 	}
 	
 	public boolean match () {
+		if (this.pattern.equals("")) {
+			return false;
+		}
 		if (this.m.find()) {
 			return true;
 		}

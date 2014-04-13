@@ -11,6 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Album;
+import model.Parser;
+import model.Processor;
+import model.Rgx;
+import model.Song;
+
 /**
  * Servlet implementation class AlbumSearch
  */
@@ -30,51 +36,38 @@ public class SearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String query = request.getParameter("query");
 		String type = request.getParameter("type");
-		request.setAttribute("query", query);
+		String query = request.getParameter("query");
+		String nextPage = "";
+		if (type == null || query == null) {
+			nextPage = "welcome.jsp";
+		} else {
+			request.setAttribute("query", query);
 
-		Parser p = new Parser(getServletContext().getRealPath("/WEB-INF/musicDb.xml"));
-		if (type.equals("album")) {
-			List<Album> albumList = p.getAlbumList();
-			List<Album> searchAlbums = new ArrayList<Album>();
-			for (Album a : albumList) {
-				if (new Rgx(a, query).match()) {
-					searchAlbums.add(a);
-				}
+			Parser p = new Parser(getServletContext().getRealPath("/WEB-INF/musicDb.xml"));
+			Processor pro = new Processor(p);
+			List<Album> searchAlbums = null;
+			List<Song> searchSongs = null;
+
+			if (type.equals("album")) {
+				searchAlbums = pro.searchAlbum(query);
+				request.setAttribute("albumList", searchAlbums);
+				nextPage = "albumResults.jsp";
 			}
-			if (searchAlbums.size() == 0) {
+			else if (type.equals("song")) {
+				searchSongs = pro.searchSong(query);
+				request.setAttribute("songList", searchSongs);
+				nextPage = "songResults.jsp";
+			}
+			if ((searchSongs == null || searchSongs.size() == 0) && (searchAlbums == null || searchAlbums.size() == 0)) {
 				request.setAttribute("type", "empty");
 			} else {
 				request.setAttribute("type", type);
 			}
-			request.setAttribute("albumList", searchAlbums);
-
 		}
-		else if (type.equals("song")) {
-			List<Song> songList = p.getSongList();
-			List<Song> searchSongs = new ArrayList<Song>();
-			for (Song s : songList) {
-				if (new Rgx(s, query).match()) {
-					searchSongs.add(s);
-				}
-			}
-			if (searchSongs.size() == 0) {
-				request.setAttribute("type", "empty");
-			} else {
-				request.setAttribute("type", type);
-			}
-			request.setAttribute("songList", searchSongs);
-		}
-
-		String nextPage = "search.jsp";
-
 
 		RequestDispatcher rd = request.getRequestDispatcher("/"+nextPage);
 		rd.forward(request, response);
-
-
-
 	}
 
 	/**
