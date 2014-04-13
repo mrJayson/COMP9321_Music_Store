@@ -39,7 +39,7 @@ public class CartServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		doPost(request, response);
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class CartServlet extends HttpServlet {
 		if (request.getParameter("action").equals("add")) {
 			String[] albumCheckboxes = request.getParameterValues("album");
 			String[] songCheckboxes = request.getParameterValues("song");
-			if (albumCheckboxes != null) {
+			if (albumCheckboxes != null) { //if nothing checked in page, request.getParam returns null
 				for (String albumID : albumCheckboxes) {
 					c.addAlbum(pro.getAlbumFromID(albumID));
 				}

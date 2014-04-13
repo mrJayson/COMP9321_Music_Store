@@ -39,7 +39,7 @@ public class SearchServlet extends HttpServlet {
 		String type = request.getParameter("type");
 		String query = request.getParameter("query");
 		String nextPage = "";
-		if (type == null || query == null) {
+		if (type == null || query == null) { //if url is tampered with, return to main page
 			nextPage = "welcome.jsp";
 		} else {
 			request.setAttribute("query", query);
@@ -60,6 +60,7 @@ public class SearchServlet extends HttpServlet {
 				nextPage = "songResults.jsp";
 			}
 			if ((searchSongs == null || searchSongs.size() == 0) && (searchAlbums == null || searchAlbums.size() == 0)) {
+				//if search results are empty
 				request.setAttribute("type", "empty");
 			} else {
 				request.setAttribute("type", type);
@@ -74,7 +75,7 @@ public class SearchServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

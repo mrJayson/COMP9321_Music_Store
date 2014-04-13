@@ -3,7 +3,7 @@ package model;
 import java.io.Serializable;
 
 public class Song implements Serializable{
-	
+
 	/**
 	 * 
 	 */
@@ -17,7 +17,7 @@ public class Song implements Serializable{
 	private String albumID;
 	private String songID;
 	private String price;
-	
+
 	public Song (String artist, String title, String albumTitle, String genre, String publisher, String year, String albumID, String songID, String price) {
 		this.artist = artist;
 		this.title = title;
@@ -44,40 +44,29 @@ public class Song implements Serializable{
 	}
 	public String getPrice() {
 		return this.price;
-		//return String.valueOf(Math.round(Float.parseFloat(this.price) * 100));
 	}
-
 	public String getAlbumTitle() {
 		return albumTitle;
 	}
-
 	public void setAlbumTitle(String albumTitle) {
 		this.albumTitle = albumTitle;
 	}
-
 	public String getGenre() {
 		return genre;
 	}
-
 	public void setGenre(String genre) {
 		this.genre = genre;
 	}
-
 	public String getPublisher() {
 		return publisher;
 	}
-
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
 	}
-
 	public String getYear() {
 		return year;
 	}
-	
 	public void setYear(String year) {
 		this.year = year;
 	}
-	
-
 }

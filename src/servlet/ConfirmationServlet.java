@@ -42,7 +42,7 @@ public class ConfirmationServlet extends HttpServlet {
 			message = "Thank you for purchasing from COMP9321 Music Store";
 		}
 		else if (request.getParameter("action").equals("cancel")) {
-			message = "You didn't buy that thank you anyways";
+			message = "You didn't buy anything but thank you anyways";
 		}
 		request.getSession().invalidate();
 		request.setAttribute("message", message);

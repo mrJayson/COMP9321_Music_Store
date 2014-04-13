@@ -48,14 +48,8 @@ public class Album implements Serializable{
 	}
 	public String getPrice() {
 		return this.price;
-		//return String.valueOf(Math.round(Float.parseFloat(this.price) * 100));
 	}
 	public List<Song> getSongList() {
 		return this.songList;
 	}
-	@Override
-	public String toString() {
-		return this.albumID;
-	}
-
 }

@@ -36,6 +36,7 @@ public class Cart implements Serializable{
 		if (a != null) {
 			this.albumList.add(a);
 			calculateDuplication();
+			//prices are strings of floats, must convert to ints in cents before processing
 			setTotalPrice(this.totalPrice + Integer.parseInt(String.valueOf(Math.round(Float.parseFloat(a.getPrice()) * 100))));
 		}
 	}
@@ -44,6 +45,7 @@ public class Cart implements Serializable{
 			if (album.getAlbumID().equals(a.getAlbumID())) {
 				this.albumList.remove(album);
 				calculateDuplication();
+				//prices are strings of floats, must convert to ints in cents before processing
 				setTotalPrice(this.totalPrice - Integer.parseInt(String.valueOf(Math.round(Float.parseFloat(a.getPrice()) * 100))));
 				return;
 			}
@@ -59,6 +61,7 @@ public class Cart implements Serializable{
 		if (s != null) {
 			this.songList.add(s);
 			calculateDuplication();
+			//prices are strings of floats, must convert to ints in cents before processing
 			setTotalPrice(this.totalPrice + Integer.parseInt(String.valueOf(Math.round(Float.parseFloat(s.getPrice()) * 100))));
 		}
 	}
@@ -67,16 +70,18 @@ public class Cart implements Serializable{
 			if (song.getSongID().equals(s.getSongID())) {
 				this.songList.remove(song);
 				calculateDuplication();
+				//prices are strings of floats, must convert to ints in cents before processing
 				setTotalPrice(this.totalPrice - Integer.parseInt(String.valueOf(Math.round(Float.parseFloat(s.getPrice()) * 100))));
 				return;
 			}
 		}
 	}
 	public float getTotalPrice() {
-		return ((float) this.totalPrice)/100;
+		return ((float) this.totalPrice)/100; //change to dollars
 	}
 	public void setTotalPrice(int totalPrice) {
 		if (totalPrice < 0) {
+			//to prevent any double posting of web page forms
 			this.totalPrice = 0;
 		}
 		this.totalPrice = totalPrice;
@@ -88,48 +93,56 @@ public class Cart implements Serializable{
 		
 		List<Album> totalAlbums = new ArrayList<Album>();
 		for (Album a : this.albumList) {
+			//gather all albums in cart
 			totalAlbums.add(a);
 		}
 		Collections.sort(totalAlbums, new Comparator<Album>(){
+			//sort based on albumID
 		     public int compare(Album o1, Album o2){
 		         return o1.getAlbumID().compareTo(o2.getAlbumID());
 		     }
 		});
 		for (int i = 0, j = 1; j < totalAlbums.size(); i++, j++) {
 			if (totalAlbums.get(i).getAlbumID().equals(totalAlbums.get(j).getAlbumID())) {
+				//extract duplicates
 				this.duplicatedAlbums.add(totalAlbums.get(i));
 			}
 		}
 		for (int i = 0, j = 1; j < duplicatedAlbums.size(); i++, j++) {
 			if (duplicatedAlbums.get(i).getAlbumID().equals(duplicatedAlbums.get(j).getAlbumID())) {
+				//uniq duplicate list
 				this.duplicatedAlbums.remove(duplicatedAlbums.get(i));
 				i--;
 				j--;
 			}
 		}
 		
-		
 		List<Song> totalSongs = new ArrayList<Song>();
 		for (Album a : this.albumList) {
+			//gather all songs of those inside albums
 			for (Song s : a.getSongList()) {
 				totalSongs.add(s);
 			};
 		}
 		for (Song s : this.songList) {
+			//gather songs from cart
 			totalSongs.add(s);
 		}
 		Collections.sort(totalSongs, new Comparator<Song>(){
+			//sort based on songID
 		     public int compare(Song o1, Song o2){
 		         return o1.getSongID().compareTo(o2.getSongID());
 		     }
 		});
 		for (int i = 0, j = 1; j < totalSongs.size(); i++, j++) {
 			if (totalSongs.get(i).getSongID().equals(totalSongs.get(j).getSongID())) {
+				//extract duplicates
 				this.duplicatedSongs.add(totalSongs.get(i));
 			}
 		}
 		for (int i = 0, j = 1; j < duplicatedSongs.size(); i++, j++) {
 			if (duplicatedSongs.get(i).getSongID().equals(duplicatedSongs.get(j).getSongID())) {
+				//uniq duplicate list
 				this.duplicatedSongs.remove(duplicatedSongs.get(i));
 				i--;
 				j--;

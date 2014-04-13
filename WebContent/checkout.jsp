@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>COMP9321 Music Store</title>
 </head>
 <body>
 	<h1 align="center">Checkout</h1>
@@ -46,7 +46,6 @@
 				<td align="right">Total Price</td>
 				<td align="right">${cart.totalPrice}</td>
 			</tr>
-
 			<tr>
 				<td></td>
 				<td></td>

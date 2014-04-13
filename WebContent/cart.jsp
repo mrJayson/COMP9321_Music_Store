@@ -98,6 +98,6 @@
 			<h1 align="center">Cart is Empty</h1>
 		</c:otherwise>
 	</c:choose>
-	<a href="welcome.jsp">Back to Search ${cart.duplicated}</a>
+	<a href="welcome.jsp">Back to Search</a>
 </body>
 </html>
