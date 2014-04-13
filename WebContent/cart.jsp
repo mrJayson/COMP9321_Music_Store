@@ -12,7 +12,7 @@
 <body>
 	<c:choose>
 		<c:when test="${cart.cartNotEmpty}">
-		<h1 align="center">Cart</h1>
+			<h1 align="center">Cart</h1>
 			<form action="cart" method="post">
 				<table align="center">
 					<tr>
@@ -58,8 +58,8 @@
 						<td></td>
 						<td></td>
 						<td></td>
-						<td>Total Price</td>
-						<td>${cart.totalPrice}</td>
+						<td align="right">Total Price</td>
+						<td align="right">${cart.totalPrice}</td>
 						<td align="center"><input type="submit" name="action"
 							value="checkout"></td>
 					</tr>
@@ -84,10 +84,9 @@
 			</c:if>
 		</c:when>
 		<c:otherwise>
-		<h1 align="center">Cart is Empty</h1>
+			<h1 align="center">Cart is Empty</h1>
 		</c:otherwise>
 	</c:choose>
-
 	<a href="welcome.jsp">Back to Search</a>
 </body>
 </html>
