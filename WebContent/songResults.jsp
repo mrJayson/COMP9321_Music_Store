@@ -16,7 +16,7 @@
 				nothing</h1>
 		</c:when>
 		<c:when test="${type == 'album' || type == 'song'}">
-			<h1 align="center">${type}search results for "${query}"</h1>
+			<h1 align="center">search results for "${query}"</h1>
 			<c:choose>
 				<c:when test="${type == 'song'}">
 					<form action="cart" method="post">
@@ -36,11 +36,11 @@
 									<td>${song.title}</td>
 									<td><a href="/COMP9321_Music_Store/search?query=${song.artist}&type=album">${song.artist}</a></td>
 									<td><a href="/COMP9321_Music_Store/search?query=${song.albumTitle}&type=song">${song.albumTitle}</a></td>
-									<td>${song.genre}</td>
-									<td>${song.publisher}</td>
-									<td>${song.year}</td>
-									<td>${song.price}</td>
-									<td><input type="checkbox" name="song"
+									<td align="right">${song.genre}</td>
+									<td align="right">${song.publisher}</td>
+									<td align="right">${song.year}</td>
+									<td align="right">${song.price}</td>
+									<td align="center"><input type="checkbox" name="song"
 										value="${song.songID}"></td>
 								</tr>
 							</c:forEach>

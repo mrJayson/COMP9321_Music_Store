@@ -35,11 +35,11 @@
 								<tr>
 									<td><a href="/COMP9321_Music_Store/search?query=${album.title}&type=song">${album.title}</a></td>
 									<td><a href="/COMP9321_Music_Store/search?query=${album.artist}&type=album">${album.artist}</a></td>
-									<td>${album.genre}</td>
-									<td>${album.publisher}</td>
-									<td>${album.year}</td>
-									<td>${album.price}</td>
-									<td><input type="checkbox" name="album"
+									<td align="right">${album.genre}</td>
+									<td align="right">${album.publisher}</td>
+									<td align="right">${album.year}</td>
+									<td align="right">${album.price}</td>
+									<td align="center"><input type="checkbox" name="album"
 										value="${album.albumID}"></td>
 								</tr>
 							</c:forEach>

@@ -82,7 +82,10 @@ public class CartServlet extends HttpServlet {
 			}
 			nextPage = "cart.jsp";
 		}
-
+		else if (request.getParameter("action").equals("checkout")) {
+			c.getDuplicatedTracks().clear();
+			nextPage = "checkout.jsp";
+		}
 
 		RequestDispatcher rd = request.getRequestDispatcher("/" + nextPage);
 		rd.forward(request, response);

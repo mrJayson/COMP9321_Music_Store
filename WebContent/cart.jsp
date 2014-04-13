@@ -10,43 +10,84 @@
 <title>COMP9321 Music Store</title>
 </head>
 <body>
-	<form action="cart" method="post">
-		<table>
-			<tr>
-				<th>Title</th>
-				<th>Artist</th>
-				<th>Type</th>
-				<th>Publisher</th>
-				<th>Price</th>
-				<th>Select</th>
-				</tr>
-
-				<c:forEach items="${cart.songList}" var="song">
+	<c:choose>
+		<c:when test="${cart.cartNotEmpty}">
+		<h1 align="center">Cart</h1>
+			<form action="cart" method="post">
+				<table align="center">
 					<tr>
-						<td>${song.title}</td>
-						<td>${song.artist}</td>
-						<td>Song</td>
-						<td>${song.publisher}</td>
-						<td>${song.price}</td>
-						<td><input type="checkbox" name="song" value="${song.songID}"></td>
+						<th>Title</th>
+						<th>Artist</th>
+						<th>Type</th>
+						<th>Publisher</th>
+						<th>Price</th>
+						<th>Select</th>
 					</tr>
-				</c:forEach>
-				<c:forEach items="${cart.albumList}" var="album">
+					<c:forEach items="${cart.songList}" var="song">
+						<tr>
+							<td>${song.title}</td>
+							<td>${song.artist}</td>
+							<td>Song</td>
+							<td align="right">${song.publisher}</td>
+							<td align="right">${song.price}</td>
+							<td align="center"><input type="checkbox" name="song"
+								value="${song.songID}"></td>
+						</tr>
+					</c:forEach>
+					<c:forEach items="${cart.albumList}" var="album">
+						<tr>
+							<td>${album.title}</td>
+							<td>${album.artist}</td>
+							<td>Album</td>
+							<td align="right">${album.publisher}</td>
+							<td align="right">${album.price}</td>
+							<td align="center"><input type="checkbox" name="album"
+								value="${album.albumID}"></td>
+						</tr>
+					</c:forEach>
 					<tr>
-						<td>${album.title}</td>
-						<td>${album.artist}</td>
-						<td>Album</td>
-						<td>${album.publisher}</td>
-						<td>${album.price}</td>
-						<td><input type="checkbox" name="album"
-							value="${album.albumID}"></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td align="center"><input type="submit" name="action"
+							value="remove"></td>
 					</tr>
-				</c:forEach>
-				<tr><td></td><td></td><td></td><td></td><td></td><td><input type="submit" name="action" value="remove"></td></tr>
-				
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>Total Price</td>
+						<td>${cart.totalPrice}</td>
+						<td align="center"><input type="submit" name="action"
+							value="checkout"></td>
+					</tr>
+				</table>
+			</form>
+			<c:if test="${cart.duplicated}">
+				<h2 align="center">Duplicated Tracks</h2>
+				<table align="center">
+					<tr>
+						<th>Title</th>
+						<th>Artist</th>
+						<th>Publisher</th>
+					</tr>
+					<c:forEach items="${cart.duplicatedTracks}" var="dup">
+						<tr>
+							<td>${dup.title}</td>
+							<td>${dup.artist}</td>
+							<td>${dup.publisher}</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</c:if>
+		</c:when>
+		<c:otherwise>
+		<h1 align="center">Cart is Empty</h1>
+		</c:otherwise>
+	</c:choose>
 
-		</table>
-	</form>
-
+	<a href="welcome.jsp">Back to Search</a>
 </body>
 </html>
